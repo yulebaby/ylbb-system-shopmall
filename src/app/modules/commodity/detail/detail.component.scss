@@ -1,0 +1,29 @@
+.form-footer {
+  margin: 40px 0 30px;
+  text-align: center;
+  button {
+    width: 160px;
+  }
+  button:first-child {
+    margin-right: 18px;
+  }
+}
+.form-header {
+  min-height: 48px;
+  padding: 16px 32px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: rgba(0,0,0,.65);
+  border-bottom: 1px solid #e8e8e8;
+  margin-bottom: 24px;
+}
+.container-box {
+  background: #fff;
+  &:last-child {
+    padding-bottom: 24px;
+  }
+  &:not(:first-child) {
+    margin-top: 24px;
+  }
+}

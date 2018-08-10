@@ -1,0 +1,164 @@
+<form nz-form [formGroup]="baseFormGroup">
+  <div class="container-box" nz-row>
+    <div class="form-header">基础信息</div>
+    <div nz-col [nzSpan]="16">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="productName">商品名称</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+          <input nz-input formControlName="productName" id="productName" placeholder="请输入商品名称">
+          <nz-form-explain *ngIf="baseFormGroup.get('productName').dirty && baseFormGroup.get('productName').errors">请输入商品名称!</nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="productIntroduction">商品简介</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+          <input nz-input formControlName="productIntroduction" id="productIntroduction" placeholder="请输入商品简介">
+          <nz-form-explain *ngIf="baseFormGroup.get('productIntroduction').dirty && baseFormGroup.get('productIntroduction').errors">请输入商品简介!</nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div class="container-box" nz-row>
+    <div class="form-header">产品属性</div>
+    <div nz-col [nzSpan]="16">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="productNum">商品编号</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+          <input nz-input formControlName="productNum" id="productNum" placeholder="请输入商品编号">
+          <nz-form-explain *ngIf="baseFormGroup.get('productNum').dirty && baseFormGroup.get('productNum').errors">请输入商品编号!</nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>品牌</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+          <nz-input-group nzSearch [nzSuffix]="suffixIconButton">
+            <nz-select formControlName="brandId" nzShowSearch nzPlaceHolder="请选择品牌">
+              <nz-option nzLabel="Jack" nzValue="jack"></nz-option>
+              <nz-option nzLabel="Lucy" nzValue="lucy"></nz-option>
+              <nz-option nzLabel="Tom" nzValue="tom"></nz-option>
+            </nz-select>
+            <ng-template #suffixIconButton>
+              <button nz-button style="border-top-left-radius: 0; border-bottom-left-radius: 0;">新增品牌</button>
+            </ng-template>
+          </nz-input-group>
+          <nz-form-explain *ngIf="baseFormGroup.get('brandId').dirty && baseFormGroup.get('brandId').errors">请选择品牌!</nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>类型</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+          <nz-input-group nzSearch [nzSuffix]="suffixIconButton">
+            <nz-select formControlName="categoryId" nzShowSearch nzPlaceHolder="请选择类型">
+              <nz-option nzLabel="Jack" nzValue="jack"></nz-option>
+              <nz-option nzLabel="Lucy" nzValue="lucy"></nz-option>
+              <nz-option nzLabel="Tom" nzValue="tom"></nz-option>
+            </nz-select>
+            <ng-template #suffixIconButton>
+              <button nz-button style="border-top-left-radius: 0; border-bottom-left-radius: 0;">新增类型</button>
+            </ng-template>
+          </nz-input-group>
+          <nz-form-explain *ngIf="baseFormGroup.get('categoryId').dirty && baseFormGroup.get('categoryId').errors">请选择类型!</nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>产地</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+          <nz-input-group nzSearch [nzSuffix]="suffixIconButton">
+            <nz-select formControlName="originId" nzShowSearch nzPlaceHolder="请选择产地">
+              <nz-option nzLabel="Jack" nzValue="jack"></nz-option>
+              <nz-option nzLabel="Lucy" nzValue="lucy"></nz-option>
+              <nz-option nzLabel="Tom" nzValue="tom"></nz-option>
+            </nz-select>
+            <ng-template #suffixIconButton>
+              <button nz-button style="border-top-left-radius: 0; border-bottom-left-radius: 0;">新增产地</button>
+            </ng-template>
+          </nz-input-group>
+          <nz-form-explain *ngIf="baseFormGroup.get('originId').dirty && baseFormGroup.get('originId').errors">请选择产地!</nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="price">商品原价</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+          <input nz-input formControlName="price" id="price" placeholder="请输入商品原价">
+          <nz-form-explain *ngIf="baseFormGroup.get('price').dirty && baseFormGroup.get('price').errors">请输入商品原价!</nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="activityPrice">活动价</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+          <input nz-input formControlName="activityPrice" id="activityPrice" placeholder="请输入活动价">
+          <nz-form-explain *ngIf="baseFormGroup.get('activityPrice').dirty && baseFormGroup.get('activityPrice').errors">请输入活动价!</nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="freight">运费</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+          <input nz-input formControlName="freight" id="freight" placeholder="请输入运费">
+          <nz-form-explain *ngIf="baseFormGroup.get('freight').dirty && baseFormGroup.get('freight').errors">请输入运费!</nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div class="container-box">
+    <div class="form-header">图片&详细说明{{ baseFormGroup.get('coverPic').value }}</div>
+    <nz-form-item>
+      <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>商品封面图</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <nz-upload [nzBeforeUpload]="coverPicBeforeUpload" nzListType="picture-card" [(nzFileList)]="coverPicItems" [nzShowButton]="coverPicItems.length < 1"
+          [nzRemove]="deleteCoverPicImag" [nzPreview]="handlePreview">
+          <i class="anticon anticon-plus"></i>
+          <div class="ant-upload-text">选择图片</div>
+        </nz-upload>
+        <app-upload-picture formControlName="coverPic"></app-upload-picture>
+        <nz-form-explain [style.color]="'#f5222d'" *ngIf="baseFormGroup.get('coverPic').dirty && baseFormGroup.get('coverPic').errors">请上传商品封面图</nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>
+        商品轮播图
+        <nz-tooltip>
+          <i class="anticon anticon-question-circle-o" nz-tooltip [ngStyle]="{'vertical-align': 'baseline', 'margin-left': '3px', 'cursor': 'ponter', 'color': '#333', 'font-size': '14px'}"></i>
+          <ng-template #nzTemplate>
+            <i class="anticon anticon-question-circle-o"></i>
+            <span [style.margin-left]="'3px'">最多5张；支持png、jepg、gif格式的图片，图片大小请小于2M</span>
+          </ng-template>
+        </nz-tooltip>
+      </nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <nz-upload [nzBeforeUpload]="carouselPicBeforeUpload" nzListType="picture-card" [(nzFileList)]="carouselPicItems" [nzShowButton]="carouselPicItems.length < allowuploadNo"
+          [nzRemove]="deleteCarouselPicImag" [nzPreview]="handlePreview">
+          <i class="anticon anticon-plus"></i>
+          <div class="ant-upload-text">选择图片</div>
+        </nz-upload>
+        <nz-form-explain [style.color]="'#f5222d'" *ngIf="baseFormGroup.get('carouselPic').dirty && baseFormGroup.get('carouselPic').errors">请上传商品轮播图</nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>商品详情</nz-form-label>
+      <nz-form-control [nzSm]="18" [nzXs]="24">
+        <app-editor #editor [editorContent]="editorContent"></app-editor>
+        <nz-form-explain [style.color]="'#f5222d'" *ngIf="baseFormGroup.get('coverPic').dirty && baseFormGroup.get('coverPic').errors">请输入商品详情</nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+
+  </div>
+</form>
+
+<div class="form-footer">
+  <button nz-button nzType="primary" nzSize="large" [nzLoading]="_submitLoading" (click)="_submit()">{{ _submitLoading ? '提交中...' : '提交' }}</button>
+  <button nz-button nzType="default" nzSize="large" routerLink="/home/commodity/list">取消</button>
+</div>
+
+
+
+
+
+
+
+
+<nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null" (nzOnCancel)="previewVisible = false">
+  <ng-template #modalContent>
+    <img [src]="previewImage" *ngIf="previewImage" [ngStyle]="{ 'width': '100%' }" />
+  </ng-template>
+</nz-modal>
