@@ -1,0 +1,25 @@
+:host ::ng-deep {
+  .ql-toolbar {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-color: #d9d9d9;
+  }
+  .ql-container {
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-color: #d9d9d9;
+  }
+  .ql-editor.ql-blank::before {
+    font-size: 14px;
+    font-style: inherit;
+    color: rgba(0, 0, 0, .4);
+  }
+  .ql-snow .ql-picker-label::before,
+  .ql-snow .ql-color-picker .ql-picker-label svg,
+  .ql-snow .ql-icon-picker .ql-picker-label svg {
+    position: absolute;
+    top: 50%;
+    margin-top: -10px;
+  }
+  
+}

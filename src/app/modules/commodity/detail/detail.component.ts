@@ -21,13 +21,12 @@ export class DetailComponent implements OnInit {
   // 富文本编辑器内容
   editorContent;
 
+  dataSet: any[] = [];
+
   // 商品基础内容
   baseFormGroup: FormGroup;
 
   _submitLoading: boolean;
-
-  showAddModal: boolean | string;
-
 
   constructor(
     private http    : HttpService,
@@ -63,25 +62,9 @@ export class DetailComponent implements OnInit {
       productDesc         : [],              // 商品详情
       specifications      : new FormGroup({})
     });
-    // this.baseFormGroup.get('categoryId').valueChanges.subscribe(categoryId => {
-    //   this.http.get('/shop/listProductSpecification', { categoryId }, false).then( res => {
-    //     res.result.map(item => {
-    //       item.specificationAttributeValueList.map(list => {
-    //         list.label = list.specificationAttributeValueName;
-    //         list.value = list.middleId;
-    //       })
-    //     })
-    //     this.specifications = res.result;
-    //     let controlName = {};
-    //     this.specifications.map((category, idx) => {
-    //       controlName[`category${category.specificationAttributeId}`] = this.specifications[idx].specificationAttributeValueList || [];
-    //     })
-    //     let specificationsGroup: FormGroup = this.baseFormGroup.get('specifications') as FormGroup;
-    //     Object.keys(controlName).map(key => specificationsGroup.addControl(key, new FormControl(controlName[key])));
-    //   })
-    // })
     this.baseFormGroup.get('specifications')
   }
+  /* ----------------------------- 更改商品类型，获取到该类型下商品规格 ----------------------------- */
   categoryIdChange(categoryId) {
     this.http.get('/shop/listProductSpecification', { categoryId }, false).then(res => {
       res.result.map(item => {
@@ -134,8 +117,8 @@ export class DetailComponent implements OnInit {
     }
   }
 
-  dataSet: any[] = [];
-  log(e) {
+  /* ------------------- 商品规格信息改变，重新计算商品各种规格数量 ------------------- */
+  specificationsChange(e) {
     this.dataSet = [];
     let specificationsGroup = this.baseFormGroup.get('specifications') as FormGroup;
     let specificationList = []
@@ -149,6 +132,34 @@ export class DetailComponent implements OnInit {
     doCombination.map(res => tableItems.push({ middle: res }));
     this.dataSet = tableItems;
   }
+
+
+
+
+  /* ---------------------- 新增分类 ---------------------- */
+  showAddModal: boolean | string;
+  saveAddTitle: string;
+  addClassValue: string;
+  saveClassLoading: boolean;
+  saveClassSource: string;
+  openSaveModal(type) {
+    this.addClassValue = '';
+    this.showAddModal = true;
+    this.saveAddTitle = addClassType[type];
+    this.saveClassSource = saveSource[type];
+  }
+  saveAddClass() {
+    if (this.addClassValue) {
+      this.saveClassLoading = true;
+      this.http.get(this.saveClassSource, { paramJson: JSON.stringify({ name: this.addClassValue }) }, false).then(res => {
+        this.saveClassLoading = false;
+        this.showAddModal = false;
+      }, err => this.saveClassLoading = false);
+    } else {
+      this.message.warning(`请输入${this.saveAddTitle}`);
+    }
+  }
+
 
   /* ---------------------- 多数组排序，获取所有组合 ---------------------- */
   doCombination(arr) {
@@ -176,31 +187,6 @@ export class DetailComponent implements OnInit {
         }
       }
       return totalArr;
-    }
-  }
-
-
-
-  /* ---------------------- 新增分类 ---------------------- */
-  saveAddTitle: string;
-  addClassValue: string;
-  saveClassLoading: boolean;
-  saveClassSource: string;
-  openSaveModal(type) {
-    this.addClassValue = '';
-    this.showAddModal = true;
-    this.saveAddTitle = addClassType[type];
-    this.saveClassSource = saveSource[type];
-  }
-  saveAddClass() {
-    if (this.addClassValue) {
-      this.saveClassLoading = true;
-      this.http.get(this.saveClassSource, { paramJson: JSON.stringify({ name: this.addClassValue }) }, false).then(res => {
-        this.saveClassLoading = false;
-        this.showAddModal = false;
-      }, err => this.saveClassLoading = false);
-    } else {
-      this.message.warning(`请输入${this.saveAddTitle}`);
     }
   }
 

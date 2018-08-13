@@ -70,7 +70,7 @@ export class EditorComponent implements OnInit {
                   client.put(`${new Date().getTime()}-${i}.${contentType.split('/')[1]}`, buffer).then(function (result) {
                     imgs[i].src = result.url;
                     uploadNum++;
-                    _this_.getContentComplate(imgs.length, uploadNum, dom).then(res => { resolve(res) }).catch();
+                    _this_.getContentComplate(imgs.length, uploadNum, dom).then(res => { resolve(res) }).catch(err => {});
                   }, err => {
                     reject('上传图片失败，请重新上传');
                   });

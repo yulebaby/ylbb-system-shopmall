@@ -135,7 +135,7 @@
         <nz-form-item *ngFor="let item of specifications">
           <nz-form-label [nzSm]="6" [nzXs]="24">{{ item.specificationAttributeName }}</nz-form-label>
           <nz-form-control [nzSm]="14" [nzXs]="24">
-            <nz-checkbox-group [formControlName]="'category' + item.specificationAttributeId" (ngModelChange)="log($event)"></nz-checkbox-group>
+            <nz-checkbox-group [formControlName]="'category' + item.specificationAttributeId" (ngModelChange)="specificationsChange($event)"></nz-checkbox-group>
           </nz-form-control>
         </nz-form-item>
       </div>
