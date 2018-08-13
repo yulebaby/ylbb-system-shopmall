@@ -136,7 +136,7 @@ export class UploadPictureComponent implements OnInit {
 
         this._aliOssClient.multipartUpload(fileName, file, {}).then(res => {
           let imageSrc = res.url ? res.url : 'http://' + res.bucket + '.oss-cn-beijing.aliyuncs.com/' + res.name;
-          let arr = this.pictures;
+          let arr = this.pictures || [];
           arr.push({
             uid: file.uid,
             url: imageSrc,

@@ -22,8 +22,8 @@ export class HttpService {
   post(url: string, query: object = {}, auto = true): Promise<any> {
     return new Promise((resolve, reject) => {
       this.http.post<YlbbResponse>(url, query).subscribe(res => {
-        (auto && res.code) && this.message.create(res.code == 1000 ? 'success' : 'warning', res.info);
-        (auto && res.code != 1000) ? reject(res) : resolve(res);
+        (auto && res.code) && this.message.create(res.code == 0 ? 'success' : 'warning', res.info);
+        (auto && res.code != 0) ? reject(res) : resolve(res);
       });
     })
   }
@@ -31,8 +31,8 @@ export class HttpService {
   get(url: string, query: object = {}, auto = true): Promise<any> {
     return new Promise((resolve, reject) => {
       this.http.get<YlbbResponse>(url, { params: new HttpParams({ fromString: serialize(query) }) }).subscribe(res => {
-        (auto && res.code) && this.message.create(res.code == 1000 ? 'success' : 'warning', res.info);
-        (auto && res.code != 1000) ? reject(res) : resolve(res);
+        (auto && res.code) && this.message.create(res.code == 0 ? 'success' : 'warning', res.info);
+        (auto && res.code != 0) ? reject(res) : resolve(res);
       });
     })
   }
