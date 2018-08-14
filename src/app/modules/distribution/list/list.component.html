@@ -1,0 +1,25 @@
+<div class="container">
+  <ea-query [node]="queryNode" (onSubmit)="EaTable.request($event)" [EaQueryBtns]="EaQueryBtns">
+    <ng-template #EaQueryBtns>
+      <button nz-button nzType="primary" style="margin-left: 8px;">导出分润信息</button>
+    </ng-template>
+  </ea-query>
+
+  <ea-table #EaTable [thead]="['订单编号', '下单时间', '商品名称', '数量', '单价', '运费', '总价', '会员ID', '分润门店', '分润比例', '分润金额']" 
+    [EaTableTbodyTr]="EaTableTbodyTr" [allowSpace]="false"
+    url="/extract/extractList">
+    <ng-template let-data #EaTableTbodyTr>
+      <td>{{ data.subcode }}</td>
+      <td>{{ data.orderCreateTime }}</td>
+      <td>{{ data.productName }}</td>
+      <td>{{ data.productCount }}</td>
+      <td>{{ data.price }}</td>
+      <td>{{ data.freight }}</td>
+      <td>{{ data.totalprice }}</td>
+      <td>{{ data.memberId }}</td>
+      <td>{{ data.shopName }}</td>
+      <td>{{ data.extract }}</td>
+      <td>{{ data.extractPrice }}</td>
+    </ng-template>
+  </ea-table>
+</div>

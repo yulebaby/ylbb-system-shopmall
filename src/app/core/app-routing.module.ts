@@ -29,6 +29,26 @@ const routes: Routes = [
         path: 'commodity',
         data: { title: '商品管理' },
         loadChildren: 'src/app/modules/commodity/commodity.module#CommodityModule'
+      },
+      {
+        path: 'order',
+        data: { title: '订单管理' },
+        loadChildren: 'src/app/modules/order/order.module#OrderModule'
+      },
+      {
+        path: 'distribution',
+        data: { title: '分润管理' },
+        loadChildren: 'src/app/modules/distribution/distribution.module#DistributionModule'
+      },
+      {
+        path: 'aftersale',
+        data: { title: '售后管理' },
+        loadChildren: 'src/app/modules/aftersale/aftersale.module#AftersaleModule'
+      },
+      {
+        path: 'broadcast',
+        data: { title: '轮播管理' },
+        loadChildren: 'src/app/modules/broadcast/broadcast.module#BroadcastModule'
       }
     ]
   },

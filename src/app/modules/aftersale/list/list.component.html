@@ -1,0 +1,29 @@
+<div class="container">
+  <ea-query [node]="queryNode" (onSubmit)="EaTable.request($event)"></ea-query>
+
+  <ea-tip type="info">
+    选择
+    <a href="javascript: void(0)">{{ checkedItems.length }}条</a> 相关记录
+    <a href="javascript:;" style="margin-right: 8px;" (click)="operation()">售后处理</a>
+    <a href="javascript:;" style="margin-right: 8px;">导出订单信息</a>
+  </ea-tip>
+
+  <ea-table #EaTable [thead]="tableNode" [checked]="true" [EaTableTbodyTr]="EaTableTbodyTr" [allowSpace]="false" [(checkedItems)]="checkedItems"
+    url="/order/orderList">
+    <ng-template let-data #EaTableTbodyTr>
+      <td>{{ data.orderCreateTime }}</td>
+      <td>{{ data.packageOrderNum }}</td>
+      <td>{{ data.orderStatus }}</td>
+      <td>{{ data.xxxxxxx }}</td>
+      <td>{{ data.productNum }}</td>
+      <td>{{ data.productName }}</td>
+      <td>{{ data.productCount }}</td>
+      <td>{{ data.price }}</td>
+      <td>{{ data.freight }}</td>
+      <td>{{ data.totalPrice }}</td>
+      <td>{{ data.memberId }}</td>
+      <td>{{ data.recipientInfo }}</td>
+      <td>{{ data.storeName }}</td>
+    </ng-template>
+  </ea-table>
+</div>
