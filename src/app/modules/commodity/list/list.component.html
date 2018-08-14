@@ -1,3 +1,30 @@
 <div class="container">
-  
+  <ea-query [node]="queryNode" (onSubmit)="EaTable.request($event)"></ea-query>
+
+
+  <ea-tip type="info">
+    选择
+    <a href="javascript: void(0)">{{ checkedItems.length }}条</a> 相关记录
+    <a href="javascript:;" style="margin-right: 8px;" (click)="operation()">上推荐</a>
+    <a href="javascript:;" style="margin-right: 8px;" (click)="operation()">上架</a>
+    <a href="javascript:;" style="margin-right: 8px;" (click)="operation()">下架</a>
+  </ea-tip>
+
+  <ea-table #EaTable [thead]="tableNode" [checked]="true" [EaTableTbodyTr]="EaTableTbodyTr" [allowSpace]="false" [(checkedItems)]="checkedItems"
+    url="/shop/listShopByCondition">
+    <ng-template let-data #EaTableTbodyTr>
+      <td>--</td>
+      <td>{{ data.productNum }}</td>
+      <td>{{ data.productName }}</td>
+      <td>{{ data.brandName }}</td>
+      <td>{{ data.recommentStatus }}</td>
+      <td>{{ data.productStatus }}</td>
+      <td>{{ data.communityName }}</td>
+      <td>{{ data.createDate }}</td>
+      <td>{{ data.nextFollowTime }}</td>
+      <td>{{ data.lastFollowTime }}</td>
+      <td>{{ data.sourceName }}</td>
+      <td>{{ data.memberStatus }}</td>
+    </ng-template>
+  </ea-table>
 </div>

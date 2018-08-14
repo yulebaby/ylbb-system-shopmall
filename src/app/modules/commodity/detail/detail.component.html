@@ -131,11 +131,12 @@
     </div>
     <div class="container-box" nz-row *ngIf="baseFormGroup.get('categoryId').value">
       <div class="form-header">商品规格</div>
-      <div nz-col [nzSpan]="16" [formGroup]="baseFormGroup.get('specifications')">
+      <div nz-col [nzSpan]="24" [formGroup]="baseFormGroup.get('specifications')">
         <nz-form-item *ngFor="let item of specifications">
-          <nz-form-label [nzSm]="6" [nzXs]="24">{{ item.specificationAttributeName }}</nz-form-label>
-          <nz-form-control [nzSm]="14" [nzXs]="24">
+          <nz-form-label [nzSm]="4" [nzXs]="24">{{ item.specificationAttributeName }}</nz-form-label>
+          <nz-form-control>
             <nz-checkbox-group [formControlName]="'category' + item.specificationAttributeId" (ngModelChange)="specificationsChange($event)"></nz-checkbox-group>
+            <a (click)="addSpecifications(item.specificationAttributeId)">添加自定义项</a>
           </nz-form-control>
         </nz-form-item>
       </div>
@@ -160,7 +161,7 @@
           <tr *ngFor="let data of basicTable.data">
             <td>
               <ng-container *ngFor="let item of data.middle; let idx = index">
-                {{ item.label + (idx == data.length - 1 ? '' : '|') }}
+                {{ item.label + (idx == data.middle.length - 1 ? '' : '|') }}
               </ng-container>
             </td>
             <td><input nz-input placeholder="请输入原价" [(ngModel)]="data.price" nzSize="small"></td>

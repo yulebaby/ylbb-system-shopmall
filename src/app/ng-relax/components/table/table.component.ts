@@ -80,10 +80,10 @@ export class TableComponent implements OnInit {
     this._pageInfo.loading = true;
     let params = Object.assign({ paramJson: JSON.stringify(Object.assign(JSON.parse(JSON.stringify(this.paramsDefault)), this._params)) }, { pageNum: isReset ? 1 : this._pageInfo.pageNum, pageSize: this._pageInfo.pageSize });
     this.http.post<any>(this.url, params).subscribe(res => {
-      if (res.code == 1000) {
+      if (res.code == 0) {
         this.dataSet = res.result.list;
         this._pageInfo.pageNum = res.result.pageNum;
-        this._pageInfo.totalPage = res.result.totalPage;
+        this._pageInfo.total = res.result.total;
 
         /* ------------------- 如果存在选择列表则初始数据 ------------------- */
         if (this.checkedItems) {
@@ -149,7 +149,7 @@ export class TableComponent implements OnInit {
 export class PageInfo {
   constructor(
     public loading    : boolean = false,
-    public totalPage  : number = 0,
+    public total  : number = 0,
     public pageNum    : number = 1,
     public pageSize   : number = 10
   ) { }

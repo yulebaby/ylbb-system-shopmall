@@ -142,22 +142,35 @@ export class DetailComponent implements OnInit {
   addClassValue: string;
   saveClassLoading: boolean;
   saveClassSource: string;
-  openSaveModal(type) {
+  openSaveModal(type, hasId?) {
     this.addClassValue = '';
     this.showAddModal = true;
     this.saveAddTitle = addClassType[type];
     this.saveClassSource = saveSource[type];
+    !hasId && (this.specificationAttributeId = null);
   }
   saveAddClass() {
     if (this.addClassValue) {
       this.saveClassLoading = true;
-      this.http.get(this.saveClassSource, { paramJson: JSON.stringify({ name: this.addClassValue }) }, false).then(res => {
+      let params = {
+        name: this.addClassValue,
+        specificationAttributeId: this.specificationAttributeId
+      }
+      this.http.get(this.saveClassSource, { paramJson: JSON.stringify(params) }, false).then(res => {
         this.saveClassLoading = false;
         this.showAddModal = false;
+        if (this.specificationAttributeId) {
+          // 这里是新增商品规格信息
+        }
       }, err => this.saveClassLoading = false);
     } else {
       this.message.warning(`请输入${this.saveAddTitle}`);
     }
+  }
+  specificationAttributeId: number;
+  addSpecifications(id) {
+    this.specificationAttributeId = id;
+    this.openSaveModal('specification', true);
   }
 
 
@@ -196,11 +209,13 @@ export class DetailComponent implements OnInit {
 enum addClassType {
   brand = '品牌',
   category = '类型',
-  origin = '产地'
+  origin = '产地',
+  specification = '规格'
 }
 
 enum saveSource {
   brand = '/brand/saveShopBrand',
   category = '/category/saveShopCategory',
-  origin = '/origin/saveShopOrigin'
+  origin = '/origin/saveShopOrigin',
+  specification = '/specificationValue/saveSpecificationAttributeValue'
 }
