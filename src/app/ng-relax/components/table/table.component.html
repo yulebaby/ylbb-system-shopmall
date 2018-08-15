@@ -1,5 +1,6 @@
 <nz-table
   #nzTable
+  nzBordered
   nzShowSizeChanger
   [nzScroll]="{x:'100%'}"
   [nzFrontPagination]="false"
@@ -42,7 +43,7 @@
   <tbody>
     <ng-template ngFor let-data [ngForOf]="dataSet">
       <tr>
-        <td nzShowCheckbox *ngIf="checked" [(nzChecked)]="data.checked" [nzDisabled]="data.disabled" (nzCheckedChange)="isChecked($event)"></td>
+        <td nzShowCheckbox [attr.rowspan]="data.hasChildren ? data.hasChildren : 1" *ngIf="data.hasChildren && checked" [(nzChecked)]="data.checked" [nzDisabled]="data.disabled" (nzCheckedChange)="isChecked($event)"></td>
         <td nzShowExpand [(nzExpand)]="data.expand" *ngIf="showExpand"></td>
         <ng-container *ngTemplateOutlet="EaTableTbodyTr; context: { $implicit: data }"></ng-container>
       </tr>

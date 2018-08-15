@@ -32,7 +32,7 @@ export class TableComponent implements OnInit {
   @Output() ready       : EventEmitter<any> = new EventEmitter();
   private _readyComplate: boolean;
 
-  @Output() private _dataChange : EventEmitter<any> = new EventEmitter();
+  @Output() private dataChange : EventEmitter<any> = new EventEmitter();
 
 
   private _EaTableTbodyTr: TemplateRef<void>;
@@ -94,7 +94,7 @@ export class TableComponent implements OnInit {
           this.ready.emit(this.dataSet);
           this._readyComplate = true;
         }
-        this._dataChange.emit(this.dataSet);
+        this.dataChange.emit(this.dataSet);
 
       } else {
         this.message.warning(res.info);

@@ -5,26 +5,113 @@
   <ea-tip type="info">
     选择
     <a href="javascript: void(0)">{{ checkedItems.length }}条</a> 相关记录
-    <a href="javascript:;" style="margin-right: 8px;" (click)="operation()">上推荐</a>
-    <a href="javascript:;" style="margin-right: 8px;" (click)="operation()">上架</a>
-    <a href="javascript:;" style="margin-right: 8px;" (click)="operation()">下架</a>
+    <a href="javascript:;" style="margin-right: 8px;" (click)="operation('recommentStatus', 1)">上推荐</a>
+    <a href="javascript:;" style="margin-right: 8px;" (click)="operation('recommentStatus', 0)">取消推荐</a>
+    <a href="javascript:;" style="margin-right: 8px;" (click)="operation('productStatus', 1)">上架</a>
+    <a href="javascript:;" style="margin-right: 8px;" (click)="operation('productStatus', 0)">下架</a>
+    <a href="javascript:;" style="margin-right: 8px;" (click)="operation(true)">排序</a>
+    <a href="javascript:;" style="margin-right: 8px;" (click)="operation()">编辑该商品</a>
   </ea-tip>
 
-  <ea-table #EaTable [thead]="tableNode" [checked]="true" [EaTableTbodyTr]="EaTableTbodyTr" [allowSpace]="false" [(checkedItems)]="checkedItems"
+  <ea-table #EaTable (dataChange)="ready($event)" [thead]="tableNode"  [EaTableTbodyTr]="EaTableTbodyTr" [allowSpace]="false"
+    [checked]="true" [(checkedItems)]="checkedItems" checkedKey="skuId"
     url="/shop/listShopByCondition">
     <ng-template let-data #EaTableTbodyTr>
-      <td>--</td>
-      <td>{{ data.productNum }}</td>
-      <td>{{ data.productName }}</td>
-      <td>{{ data.brandName }}</td>
-      <td>{{ data.recommentStatus }}</td>
-      <td>{{ data.productStatus }}</td>
-      <td>{{ data.communityName }}</td>
-      <td>{{ data.createDate }}</td>
-      <td>{{ data.nextFollowTime }}</td>
-      <td>{{ data.lastFollowTime }}</td>
-      <td>{{ data.sourceName }}</td>
-      <td>{{ data.memberStatus }}</td>
+      <td [attr.rowspan]="data.hasChildren ? data.hasChildren : 1"  *ngIf="data.hasChildren"></td>
+      <td [attr.rowspan]="data.hasChildren ? data.hasChildren : 1"  *ngIf="data.hasChildren">{{ data.productNum }}</td>
+      <td [attr.rowspan]="data.hasChildren ? data.hasChildren : 1"  *ngIf="data.hasChildren">{{ data.name }}</td>
+      <td [attr.rowspan]="data.hasChildren ? data.hasChildren : 1"  *ngIf="data.hasChildren">{{ data.brandName }}</td>
+      <td [attr.rowspan]="data.hasChildren ? data.hasChildren : 1"  *ngIf="data.hasChildren">{{ data.recommentStatus == 1 ? '推荐' : '不推荐' }}</td>
+      <td [attr.rowspan]="data.hasChildren ? data.hasChildren : 1"  *ngIf="data.hasChildren">{{ data.productStatus == 1 ? '上架' : '下架' }}</td>
+      <td>{{ data.propertiesName }}</td>
+      <td>{{ data.price }}</td>
+      <td>{{ data.activityPrice }}</td>
+      <td>{{ data.stock }}</td>
+      <td>{{ data.purchase }}</td>
+      <td>{{ data.extract }}</td>
+      <td>{{ data.subcode }}</td>
     </ng-template>
   </ea-table>
 </div>
+
+
+<nz-drawer [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
+  [nzWidth]="720" [nzVisible]="showDetail" nzTitle="编辑商品信息" (nzOnClose)="showDetail = false">
+  <form nz-form>
+    <div nz-row nzGutter="8">
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label>Name</nz-form-label>
+          <nz-form-control>
+            <input nz-input placeholder="please enter user name">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label>Url</nz-form-label>
+          <nz-form-control>
+            <nz-input-group nzAddOnBefore="http://" nzAddOnAfter=".com">
+              <input type="text" nz-input placeholder="please enter url">
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row nzGutter="8">
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label>Owner</nz-form-label>
+          <nz-form-control>
+            <nz-select nzPlaceHolder="Please select an owner"></nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label>Type</nz-form-label>
+          <nz-form-control>
+            <nz-select nzPlaceHolder="Please choose the type"></nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row nzGutter="8">
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label>Approver</nz-form-label>
+          <nz-form-control>
+            <nz-select nzPlaceHolder="Please choose the approver"></nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label>DateTime</nz-form-label>
+          <nz-form-control>
+            <nz-range-picker></nz-range-picker>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row nzGutter="8">
+      <div nz-col nzSpan="24">
+        <nz-form-item>
+          <nz-form-label>Description</nz-form-label>
+          <nz-form-control>
+            <textarea nz-input placeholder="please enter url description" [nzAutosize]="{ minRows: 4, maxRows: 4 }"></textarea>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+  </form>
+  <div class="footer">
+    <button type="button" (click)="showDetail = false" class="ant-btn" style="margin-right: 8px;"><span>Cancel</span></button>
+    <button type="button" (click)="showDetail = false" class="ant-btn ant-btn-primary"><span>Submit</span></button>
+  </div>
+</nz-drawer>
+
+
+<nz-modal [(nzVisible)]="showSort" nzTitle="商品排序" (nzOnCancel)="showSort = false" (nzOnOk)="enterSort()">
+  <input nz-input type="text" [(ngModel)]="sortNum" placeholder="请输入该商品的排名">
+</nz-modal>

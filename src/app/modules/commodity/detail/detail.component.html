@@ -44,16 +44,11 @@
           </nz-form-control>
         </nz-form-item>
         <nz-form-item>
-          <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>类型</nz-form-label>
+          <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>分类</nz-form-label>
           <nz-form-control [nzSm]="14" [nzXs]="24">
-            <nz-input-group nzSearch [nzSuffix]="suffixIconButton2">
-              <nz-select formControlName="categoryId" nzShowSearch nzPlaceHolder="请选择类型" (ngModelChange)="categoryIdChange($event)">
-                <nz-option *ngFor="let item of listShopCategory" [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
-              </nz-select>
-              <ng-template #suffixIconButton2>
-                <button nz-button style="border-top-left-radius: 0; border-bottom-left-radius: 0;" (click)="openSaveModal('category')">新增类型</button>
-              </ng-template>
-            </nz-input-group>
+            <nz-select formControlName="categoryId" nzShowSearch nzPlaceHolder="请选择类型" (ngModelChange)="categoryIdChange($event)">
+              <nz-option *ngFor="let item of listShopCategory" [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
+            </nz-select>
             <nz-form-explain *ngIf="baseFormGroup.get('categoryId').dirty && baseFormGroup.get('categoryId').errors">请选择类型!</nz-form-explain>
           </nz-form-control>
         </nz-form-item>

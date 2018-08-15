@@ -110,7 +110,7 @@ export class DetailComponent implements OnInit {
           res.propertiesName = res.middle.map(m => m.label).join(',');
         })
         console.log(params, this.dataSet)
-        this.http.get('/shop/saveProduct', { productJson: JSON.stringify(params), skuJson: JSON.stringify(this.dataSet) }).then(res => {
+        this.http.post('/shop/saveProduct', { productJson: JSON.stringify(params), skuJson: encodeURI(JSON.stringify(this.dataSet)) }).then(res => {
           this._submitLoading = false;
         }, err => this._submitLoading = false)
       })
@@ -160,7 +160,11 @@ export class DetailComponent implements OnInit {
         this.saveClassLoading = false;
         this.showAddModal = false;
         if (this.specificationAttributeId) {
-          // 这里是新增商品规格信息
+          this.baseFormGroup.get('specifications').get('category' + this.specificationAttributeId).value.push({ label: res.result.name, value: res.result.id });
+        } else if (this.saveAddTitle == addClassType['brand']) {
+          this.listShopBrand.push(res.result);
+        } else if (this.saveAddTitle == addClassType['origin']) {
+          this.listShopOrigin.push(res.result);
         }
       }, err => this.saveClassLoading = false);
     } else {
