@@ -113,18 +113,18 @@
         </nz-form-item>
       </div>
     </div>
+  </form>
     <div nz-row nzGutter="8">
       <div nz-col nzSpan="24">
         <nz-form-item>
           <nz-form-label>商品详情</nz-form-label>
           <nz-form-control>
-            <app-editor #editor [editorContent]="editorContent"></app-editor>
+            <app-editor #editor [(ngModel)]="editorContent"></app-editor>
             <nz-form-explain [style.color]="'#f5222d'" *ngIf="commodityGroup.get('coverPic').dirty && commodityGroup.get('coverPic').errors">请输入商品详情</nz-form-explain>
           </nz-form-control>
         </nz-form-item>
       </div>
     </div>
-  </form>
   <div nz-row nzGutter="8">
     <nz-table #basicTable [nzData]="dataSet">
       <thead>
@@ -140,11 +140,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let data of basicTable.data">
-          <td>
-            <ng-container *ngFor="let item of data.middle; let idx = index">
-              {{ item.label + (idx == data.middle.length - 1 ? '' : '|') }}
-            </ng-container>
-          </td>
+          <td>{{ data.propertiesName }}</td>
           <td><input nz-input placeholder="请输入原价" [(ngModel)]="data.price" nzSize="small"></td>
           <td><input nz-input placeholder="请输入活动价" [(ngModel)]="data.activityPrice" nzSize="small"></td>
           <td><input nz-input placeholder="请输入库存" [(ngModel)]="data.stock" nzSize="small"></td>
@@ -156,7 +152,7 @@
     </nz-table>
   </div>
   <div class="footer">
-    <button type="button" (click)="cancelEdit()" class="ant-btn"><span>取消</span></button>
+    <button type="button" (click)="cancelEdit(false)" class="ant-btn"><span>取消</span></button>
     <button type="button" (click)="submit()" class="ant-btn ant-btn-primary"><span>保存</span></button>
   </div>
 </nz-spin>

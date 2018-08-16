@@ -53,7 +53,7 @@ export class EditorComponent implements OnInit {
                 const ImageURL = imgs[i].src
                 if (ImageURL.substr(0, 4) == 'http') {
                   uploadNum++;
-                  _this_.getContentComplate(imgs.length, uploadNum, dom);
+                  _this_.getContentComplate(imgs.length, uploadNum, dom).then(res => { resolve(res) }).catch(err => {});
                   return;
                 }
                 // 将 base64 图片转换成 blob 流

@@ -1,6 +1,7 @@
 import { HttpService } from './../../../ng-relax/services/http.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
+import { EditorComponent } from 'src/app/modules/commodity/detail/editor/editor.component';
 
 @Component({
   selector: 'app-update',
@@ -9,11 +10,13 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class UpdateComponent implements OnInit {
 
+  @ViewChild('editor') editor: EditorComponent;
+
   private _commodityId: number;
   @Input() 
   set commodityId(id) {
     console.log('接受到Id', id)
-    this.getDetail(id);
+    id && this.getDetail(id);
     this._commodityId = id;
   }
 
@@ -59,7 +62,13 @@ export class UpdateComponent implements OnInit {
   }
 
   getDetail(id) {
-    // this.loading = true;
+    this.loading = true;
+    this.http.post('/shop/getProductDisplay', { productId: id }).then(res => {
+      this.loading = false;
+      this.commodityGroup.patchValue(res.result);
+      this.editorContent = res.result.productDesc;
+      this.dataSet = res.result.productSkuList;
+    })
   }
 
   submit() {
@@ -68,12 +77,21 @@ export class UpdateComponent implements OnInit {
       this.commodityGroup.controls[i].updateValueAndValidity();
     }
     if (this.commodityGroup.valid) {
-
+      // 获取到富文本编辑器内容
+      let params = this.commodityGroup.value;
+      this.editor.getContent().then(res => {
+        params.productDesc = res;
+        params.id = this._commodityId;
+        this.http.post('/shop/updateProduct', { productJson: JSON.stringify(params), skuJson: encodeURI(JSON.stringify(this.dataSet)) }).then(res => {
+          this.loading = false;
+          this.cancelEdit(true);
+        }, err => this.loading = false)
+      })
     }
   }
 
-  cancelEdit() {
-    this.showDetailChange.emit(false);
+  cancelEdit(bool) {
+    this.showDetailChange.emit(bool);
   }
 
 }

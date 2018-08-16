@@ -72,7 +72,7 @@ export class ListComponent implements OnInit {
           params.productNum = res.productNum;
         }
       });
-      if (type && typeof value) {
+      if (type && typeof value === 'number') {
         params[type] = value;
         this.http.post('/shop/updateProductStatusAndRecommentStatus', { paramJson: JSON.stringify(params) }).then(res => {
           this.table._request();
@@ -94,6 +94,9 @@ export class ListComponent implements OnInit {
 
   editComplate(boolean) {
     this.showDetail = false;
+    if (boolean) {
+      this.table._request();
+    }
   }
 
   enterSort() {
@@ -120,6 +123,7 @@ export class ListComponent implements OnInit {
         }
         delete newCell.productSkuList;
         delete newCell.activityPrice;
+        delete newCell.price;
         arr.push(Object.assign(list, newCell))
       })
     })
