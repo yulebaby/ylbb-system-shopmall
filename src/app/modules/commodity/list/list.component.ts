@@ -11,6 +11,7 @@ import { HttpService } from 'src/app/ng-relax/services/http.service';
 export class ListComponent implements OnInit {
 
   showDetail: boolean;
+  editCommodityId: number;
 
   queryNode = [
     {
@@ -71,7 +72,7 @@ export class ListComponent implements OnInit {
           params.productNum = res.productNum;
         }
       });
-      if (type && value) {
+      if (type && typeof value) {
         params[type] = value;
         this.http.post('/shop/updateProductStatusAndRecommentStatus', { paramJson: JSON.stringify(params) }).then(res => {
           this.table._request();
@@ -88,6 +89,11 @@ export class ListComponent implements OnInit {
 
   editCommodity(id) {
     this.showDetail = true;
+    this.editCommodityId = id;
+  }
+
+  editComplate(boolean) {
+    this.showDetail = false;
   }
 
   enterSort() {
@@ -105,13 +111,15 @@ export class ListComponent implements OnInit {
 
   ready(data) {
     let arr = [];
-    data.map(res => {
+    data.map((res, index) => {
       res.productSkuList.map((list, idx) => {
         let newCell = JSON.parse(JSON.stringify(res));
         if (idx === 0) {
           newCell.hasChildren = res.productSkuList.length;
+          newCell.sort = (this.table._pageInfo.pageNum - 1) * this.table._pageInfo.pageSize + index + 1;
         }
         delete newCell.productSkuList;
+        delete newCell.activityPrice;
         arr.push(Object.assign(list, newCell))
       })
     })

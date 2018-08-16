@@ -1,0 +1,162 @@
+<nz-spin [nzSpinning]="loading">
+  <form nz-form [formGroup]="commodityGroup">
+    <div nz-row nzGutter="8">
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label nzRequired>商品名称</nz-form-label>
+          <nz-form-control>
+            <input nz-input placeholder="请输入商品名称" formControlName="name">
+            <nz-form-explain *ngIf="commodityGroup.get('name').dirty && commodityGroup.get('name').errors">请输入商品名称!</nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label nzRequired>商品编码</nz-form-label>
+          <nz-form-control>
+            <input type="text" nz-input placeholder="请输入商品编码" formControlName="productNum">
+            <nz-form-explain *ngIf="commodityGroup.get('productNum').dirty && commodityGroup.get('productNum').errors">请输入商品编号!</nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row nzGutter="8">
+      <div nz-col nzSpan="24">
+        <nz-form-item>
+          <nz-form-label nzRequired>商品简介</nz-form-label>
+          <nz-form-control>
+            <textarea nz-input placeholder="请输入商品简介" nzAutosize formControlName="productIntroduction"></textarea>
+            <nz-form-explain *ngIf="commodityGroup.get('productIntroduction').dirty && commodityGroup.get('productIntroduction').errors">请输入商品简介!</nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row nzGutter="8">
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label nzRequired>所属品牌</nz-form-label>
+          <nz-form-control>
+            <nz-select nzPlaceHolder="请选择所属品牌" formControlName="brandId">
+              <nz-option *ngFor="let item of listShopBrand" [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label nzRequired>所属类型</nz-form-label>
+          <nz-form-control>
+            <nz-select nzPlaceHolder="请选择所属类型" formControlName="categoryId">
+              <nz-option *ngFor="let item of listShopCategory" [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row nzGutter="8">
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label nzRequired>所属产地</nz-form-label>
+          <nz-form-control>
+            <nz-select nzPlaceHolder="请选择所属产地" formControlName="originId">
+              <nz-option *ngFor="let item of listShopOrigin" [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label nzRequired>商品原价</nz-form-label>
+          <nz-form-control>
+            <input type="text" nz-input placeholder="请输入商品原价" formControlName="price">
+            <nz-form-explain *ngIf="commodityGroup.get('price').dirty && commodityGroup.get('price').errors">请输入商品原价!</nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row nzGutter="8">
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label>活动价</nz-form-label>
+          <nz-form-control>
+            <input type="text" nz-input placeholder="请输入商品活动价" formControlName="activityPrice">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label nzRequired>运费</nz-form-label>
+          <nz-form-control>
+            <input type="text" nz-input placeholder="请输入商品运费" formControlName="freight">
+            <nz-form-explain *ngIf="commodityGroup.get('freight').dirty && commodityGroup.get('freight').errors">请输入商品运费!</nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row nzGutter="8">
+      <div nz-col nzSpan="5">
+        <nz-form-item>
+          <nz-form-label>封面图</nz-form-label>
+          <nz-form-control>
+            <app-upload-picture formControlName="coverPic"></app-upload-picture>
+            <nz-form-explain [style.color]="'#f5222d'" *ngIf="commodityGroup.get('coverPic').dirty && commodityGroup.get('coverPic').errors">请上传商品封面图</nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzSpan="19">
+        <nz-form-item>
+          <nz-form-label>轮播图</nz-form-label>
+          <nz-form-control>
+            <app-upload-picture formControlName="carouselPic" [maxLength]="5"></app-upload-picture>
+            <nz-form-explain [style.color]="'#f5222d'" *ngIf="commodityGroup.get('carouselPic').dirty && commodityGroup.get('carouselPic').errors">请上传商品轮播图</nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row nzGutter="8">
+      <div nz-col nzSpan="24">
+        <nz-form-item>
+          <nz-form-label>商品详情</nz-form-label>
+          <nz-form-control>
+            <app-editor #editor [editorContent]="editorContent"></app-editor>
+            <nz-form-explain [style.color]="'#f5222d'" *ngIf="commodityGroup.get('coverPic').dirty && commodityGroup.get('coverPic').errors">请输入商品详情</nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+  </form>
+  <div nz-row nzGutter="8">
+    <nz-table #basicTable [nzData]="dataSet">
+      <thead>
+        <tr>
+          <th>规格信息</th>
+          <th>原价</th>
+          <th>活动价</th>
+          <th>库存</th>
+          <th>门店分润</th>
+          <th>限购/人</th>
+          <th>商品编号</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of basicTable.data">
+          <td>
+            <ng-container *ngFor="let item of data.middle; let idx = index">
+              {{ item.label + (idx == data.middle.length - 1 ? '' : '|') }}
+            </ng-container>
+          </td>
+          <td><input nz-input placeholder="请输入原价" [(ngModel)]="data.price" nzSize="small"></td>
+          <td><input nz-input placeholder="请输入活动价" [(ngModel)]="data.activityPrice" nzSize="small"></td>
+          <td><input nz-input placeholder="请输入库存" [(ngModel)]="data.stock" nzSize="small"></td>
+          <td><input nz-input placeholder="请输入门店分润" [(ngModel)]="data.extract" nzSize="small"></td>
+          <td><input nz-input placeholder="请输入限购数" [(ngModel)]="data.purchase" nzSize="small"></td>
+          <td><input nz-input placeholder="请输入商品编号" [(ngModel)]="data.subcode" nzSize="small"></td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+  <div class="footer">
+    <button type="button" (click)="cancelEdit()" class="ant-btn"><span>取消</span></button>
+    <button type="button" (click)="submit()" class="ant-btn ant-btn-primary"><span>保存</span></button>
+  </div>
+</nz-spin>

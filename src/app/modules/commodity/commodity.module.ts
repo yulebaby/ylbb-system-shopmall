@@ -8,6 +8,7 @@ import { ListComponent } from './list/list.component';
 import { DetailComponent } from './detail/detail.component';
 import { EditorComponent } from './detail/editor/editor.component';
 import { UploadPictureComponent } from './detail/upload-picture/upload-picture.component';
+import { UpdateComponent } from './update/update.component';
 
 @NgModule({
   imports: [
@@ -16,6 +17,6 @@ import { UploadPictureComponent } from './detail/upload-picture/upload-picture.c
     NgRelaxModule,
     QuillModule
   ],
-  declarations: [ListComponent, DetailComponent, EditorComponent, UploadPictureComponent]
+  declarations: [ListComponent, DetailComponent, EditorComponent, UploadPictureComponent, UpdateComponent]
 })
 export class CommodityModule { }
