@@ -3,11 +3,11 @@ import { Component, OnInit, Input, Output, EventEmitter, TemplateRef } from '@an
 import { NzMessageService } from 'ng-zorro-antd';
 
 @Component({
-  selector: 'ea-table',
+  selector: 'ea-tablec',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss']
 })
-export class TableComponent implements OnInit {
+export class TablecComponent implements OnInit {
 
   @Input() thead        : any[] = [];
 

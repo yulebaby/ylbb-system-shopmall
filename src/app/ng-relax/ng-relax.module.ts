@@ -19,6 +19,7 @@ import { MonthdiffPipe } from './pipes/monthdiff.pipe';
 import { QuoteComponent } from './components/quote/quote.component';
 import { ListPageComponent } from './components/list-page/list-page.component';
 import { HttpService } from './services/http.service';
+import { TablecComponent } from 'src/app/ng-relax/components/tablec/table.component';
 registerLocaleData(zh);
 
 @NgModule({
@@ -30,7 +31,7 @@ registerLocaleData(zh);
     HttpClientModule,
     NgZorroAntdModule
   ],
-  declarations: [QueryComponent, TableComponent, SlideComponent, TipComponent, MonthdiffPipe, QuoteComponent, ListPageComponent],
+  declarations: [QueryComponent, TableComponent, SlideComponent, TipComponent, MonthdiffPipe, QuoteComponent, ListPageComponent, TablecComponent],
   providers: [
     { provide: NZ_I18N, useValue: zh_CN },
     {
@@ -50,6 +51,7 @@ registerLocaleData(zh);
     TipComponent,
     QuoteComponent,
     ListPageComponent,
+    TablecComponent,
 
     MonthdiffPipe,
 

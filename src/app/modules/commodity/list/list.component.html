@@ -13,8 +13,8 @@
     <a href="javascript:;" style="margin-right: 8px;" (click)="operation();">编辑该商品</a>
   </ea-tip>
 
-  <ea-table #EaTable (dataChange)="ready($event)" [thead]="tableNode"  [EaTableTbodyTr]="EaTableTbodyTr" [allowSpace]="false"
-    [checked]="true" [(checkedItems)]="checkedItems" spanKey="hasChildren" checkedKey="skuId"
+  <ea-tablec #EaTable (dataChange)="ready($event)" [thead]="tableNode"  [EaTableTbodyTr]="EaTableTbodyTr" [allowSpace]="false"
+    [checked]="true" [(checkedItems)]="checkedItems" checkedKey="skuId"
     url="/shop/listShopByCondition">
     <ng-template let-data #EaTableTbodyTr>
       <td [attr.rowspan]="data.hasChildren ? data.hasChildren : 1"  *ngIf="data.hasChildren">{{ data.sort }}</td>
@@ -31,7 +31,7 @@
       <td>{{ data.extract }}</td>
       <td>{{ data.subcode }}</td>
     </ng-template>
-  </ea-table>
+  </ea-tablec>
 </div>
 
 
