@@ -1,3 +1,6 @@
+import { environment } from './../../../../environments/environment';
+import { TableComponent } from './../../../ng-relax/components/table/table.component';
+import { NzMessageService } from 'ng-zorro-antd';
 import { QueryNode } from './../../../ng-relax/components/query/query.component';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpService } from 'src/app/ng-relax/services/http.service';
@@ -8,6 +11,8 @@ import { HttpService } from 'src/app/ng-relax/services/http.service';
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit {
+
+  domain = environment.domain;
 
   queryNode: QueryNode[] = [
     {
@@ -57,26 +62,57 @@ export class ListComponent implements OnInit {
   ];
 
   
-  tableNode = [ '下单时间', '订单编号', '订单状态', '物流编号', '商品编号', '商品名称', '数量', '单价', '运费', '总价', '会员ID', '收货人信息', '所属门店', '备注' ];
+  tableNode = [ '下单时间', '订单编号', '订单状态', '物流编号', '商品子编号', '商品名称', '数量', '单价', '运费', '总价', '会员ID', '收货人信息', '所属门店', '备注' ];
 
   checkedItems: any[] = [];
 
-  @ViewChild('EaTable') table;
+  @ViewChild('EaTable') table: TableComponent;
 
   constructor(
-    private http    : HttpService
+    private http    : HttpService,
+    private message : NzMessageService
   ) { }
 
   ngOnInit() {
   }
 
-  operation(): void {
+  showModal: any;
+  modalTitle: string;
+  modalForm = { remark: null, orderStatus: null, logisticNum: null };
+  operation(source): void {
     if (!this.checkedItems.length) {
-      console.log('请选择数据')
+      this.message.warning('请选择数据')
     } else if (this.checkedItems.length > 1) {
-      console.log('请选择一条数据')
+      this.message.warning('请选择一条数据')
     } else {
-
+      this.showModal = source;
+      this.modalForm = { remark: null, orderStatus: null, logisticNum: null };
+      if (source == 1) {
+        this.table.dataSet.map(res => {
+          if (res.id == this.checkedItems[0]) {
+            this.modalForm.remark = res.remark;
+          }
+        })
+      }
+    }
+  }
+  enterModal() {
+    if (this.showModal == 1 && !this.modalForm.remark) {
+      this.message.warning('请输入备注信息');
+    } else if (this.showModal == 2 && !this.modalForm.orderStatus) {
+      this.message.warning('请选择订单状态');
+    } else if (this.showModal == 3 && !this.modalForm.logisticNum) {
+      this.message.warning('请输入物流编号');
+    } else {
+      let params: any = this.modalForm;
+      params.orderItemId = this.checkedItems[0];
+      this.http.post(this.showModal == 1 ? '/order/updateRemark' : this.showModal == 2 ? '/order/updateOrderStatus' : '/order/uploadLogisticNum', {
+        paramJson: JSON.stringify(params)
+      }).then(res => {
+        this.showModal = false;
+        this.table._request();
+        this.checkedItems = [];
+      })
     }
   }
 

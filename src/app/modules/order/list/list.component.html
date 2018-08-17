@@ -4,25 +4,31 @@
   <ea-tip type="info">
     选择
     <a href="javascript: void(0)">{{ checkedItems.length }}条</a> 相关记录
-    <a href="javascript:;" style="margin-right: 8px;" (click)="operation()">添加备注</a>
-    <a href="javascript:;" style="margin-right: 8px;" (click)="operation()">更改订单状态</a>
-    <a href="javascript:;" style="margin-right: 8px;" (click)="operation()">上传物流编号</a>
-    <a href="javascript:;" style="margin-right: 8px;" (click)="operation()">导出订单信息</a>
+    <a href="javascript:;" style="margin-right: 8px;" (click)="operation(1)">添加备注</a>
+    <a href="javascript:;" style="margin-right: 8px;" (click)="operation(2)">更改订单状态</a>
+    <a href="javascript:;" style="margin-right: 8px;" (click)="operation(3)">上传物流编号</a>
+    <a target="_blank" [href]="domain + '/order/poi?orderIds=' + checkedItems.join(',')" download="订单信息.xls">导出订单信息</a>
   </ea-tip>
 
   <ea-table #EaTable [thead]="tableNode" [checked]="true" [EaTableTbodyTr]="EaTableTbodyTr" [allowSpace]="false" [(checkedItems)]="checkedItems"
     url="/order/orderList">
     <ng-template let-data #EaTableTbodyTr>
-      <td>{{ data.orderCreateTime }}</td>
+      <td>{{ data.orderCreateTime | date: 'yyyy-MM-dd hh:mm:ss' }}</td>
       <td>{{ data.packageOrderNum }}</td>
-      <td>{{ data.orderStatus }}</td>
-      <td>{{ data.xxxxxxx }}</td>
+      <td>
+      {{ 
+         data.orderStatus == 0 ? '未支付' : data.orderStatus == 1 ? '已支付(待发货)' : data.orderStatus == 2 ? '已关闭(过期/取消)' : data.orderStatus
+        == 3 ? '已删除' : data.orderStatus == 4 ? '已发货' : data.orderStatus == 5 ? '已签收' : data.orderStatus == 6 ? '已完成' : data.orderStatus
+        == 7 ? '售后未处理' : data.orderStatus == 8 ? '售后处理中(换)' : data.orderStatus == 9 ? '售后处理已完成(换)' : data.orderStatus == 10 ? '售后处理中(退)'
+        : data.orderStatus == 11 ? '售后处理已完成(退)' : ''
+      }}</td>
+      <td>{{ data.logisticNum }}</td>
       <td>{{ data.productNum }}</td>
       <td>{{ data.productName }}</td>
       <td>{{ data.productCount }}</td>
-      <td>{{ data.price }}</td>
-      <td>{{ data.freight }}</td>
-      <td>{{ data.totalPrice }}</td>
+      <td>{{ data.price | currency: '￥' }}</td>
+      <td>{{ data.freight | currency: '￥' }}</td>
+      <td>{{ data.totalPrice | currency: '￥' }}</td>
       <td>{{ data.memberId }}</td>
       <td>{{ data.recipientInfo }}</td>
       <td>{{ data.storeName }}</td>
@@ -30,3 +36,23 @@
     </ng-template>
   </ea-table>
 </div>
+
+
+<nz-modal [(nzVisible)]="showModal" [nzTitle]="showModal == 1 ? '修改备注' : showModal == 2 ? '修改订单状态' : '填写物流编号'" (nzOnCancel)="showModal = false" (nzOnOk)="enterModal()">
+  <textarea nz-input [nzAutosize]="{ minRows: 4, maxRows: 6 }" *ngIf="showModal == 1" [(ngModel)]="modalForm.remark" placeholder="请输入售后备注"></textarea>
+  <nz-select style="width: 100%;" *ngIf="showModal == 2" [(ngModel)]="modalForm.orderStatus" nzAllowClear nzPlaceHolder="请选择订单状态">
+    <nz-option [nzValue]="0" nzLabel="未支付"></nz-option>
+    <nz-option [nzValue]="1" nzLabel="已支付(待发货)"></nz-option>
+    <nz-option [nzValue]="2" nzLabel="已关闭(过期/取消)"></nz-option>
+    <nz-option [nzValue]="3" nzLabel="已删除"></nz-option>
+    <nz-option [nzValue]="4" nzLabel="已发货"></nz-option>
+    <nz-option [nzValue]="5" nzLabel="已签收"></nz-option>
+    <nz-option [nzValue]="6" nzLabel="已完成"></nz-option>
+    <nz-option [nzValue]="7" nzLabel="售后未处理"></nz-option>
+    <nz-option [nzValue]="8" nzLabel="售后处理中(换)"></nz-option>
+    <nz-option [nzValue]="9" nzLabel="售后处理已完成(换)"></nz-option>
+    <nz-option [nzValue]="10" nzLabel="售后处理中(退)"></nz-option>
+    <nz-option [nzValue]="11" nzLabel="售后处理已完成 (退)"></nz-option>
+  </nz-select>
+  <input nz-input type="text" *ngIf="showModal == 3" [(ngModel)]="modalForm.logisticNum" placeholder="请输入物流编号">
+</nz-modal>
