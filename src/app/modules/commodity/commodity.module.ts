@@ -17,6 +17,7 @@ import { UpdateComponent } from './update/update.component';
     NgRelaxModule,
     QuillModule
   ],
-  declarations: [ListComponent, DetailComponent, EditorComponent, UploadPictureComponent, UpdateComponent]
+  declarations: [ListComponent, DetailComponent, EditorComponent, UploadPictureComponent, UpdateComponent],
+  exports: [UploadPictureComponent]
 })
 export class CommodityModule { }

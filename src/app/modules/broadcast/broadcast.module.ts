@@ -4,12 +4,14 @@ import { CommonModule } from '@angular/common';
 
 import { BroadcastRoutingModule } from './broadcast-routing.module';
 import { SettingComponent } from './setting/setting.component';
+import { CommodityModule } from 'src/app/modules/commodity/commodity.module';
 
 @NgModule({
   imports: [
     CommonModule,
     BroadcastRoutingModule,
-    NgRelaxModule
+    NgRelaxModule,
+    CommodityModule
   ],
   declarations: [SettingComponent]
 })

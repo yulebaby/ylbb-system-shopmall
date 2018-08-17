@@ -7,7 +7,7 @@
     <a href="javascript:;" style="margin-right: 8px;" (click)="operation(1)">添加备注</a>
     <a href="javascript:;" style="margin-right: 8px;" (click)="operation(2)">更改订单状态</a>
     <a href="javascript:;" style="margin-right: 8px;" (click)="operation(3)">上传物流编号</a>
-    <a target="_blank" [href]="domain + '/order/poi?orderIds=' + checkedItems.join(',')" download="订单信息.xls">导出订单信息</a>
+    <a target="_blank" [href]="domain + '/order/poi?orderIds=' + checkedItems.join(',')" download="订单信息">导出订单信息</a>
   </ea-tip>
 
   <ea-table #EaTable [thead]="tableNode" [checked]="true" [EaTableTbodyTr]="EaTableTbodyTr" [allowSpace]="false" [(checkedItems)]="checkedItems"

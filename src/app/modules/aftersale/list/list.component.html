@@ -5,7 +5,7 @@
     选择
     <a href="javascript: void(0)">{{ checkedItems.length }}条</a> 相关记录
     <a href="javascript:;" style="margin-right: 8px;" (click)="operation()">售后处理</a>
-    <a target="_blank" [href]="domain + '/order/exportOrderMessage?itemIds=' + checkedItems.join(',')" download="售后订单.xls">导出订单信息</a>
+    <a target="_blank" [href]="domain + '/order/exportOrderMessage?itemIds=' + checkedItems.join(',')" download="售后订单">导出订单信息</a>
   </ea-tip>
 
   <ea-table #EaTable [thead]="tableNode" [checked]="true" [EaTableTbodyTr]="EaTableTbodyTr" [allowSpace]="false" [(checkedItems)]="checkedItems"

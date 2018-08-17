@@ -1,3 +1,28 @@
 <div class="container">
-
+  <form nz-form [formGroup]="formModel">
+    <nz-form-item>
+      <nz-form-label>商城模块</nz-form-label>
+      <nz-form-control>
+        <app-upload-picture formControlName="shop" [maxLength]="5"></app-upload-picture>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+  <nz-table #basicTable [nzData]="shopItems">
+    <thead>
+      <tr>
+        <th>条数</th>
+        <th>图片链接</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of basicTable.data; let idx = index;">
+        <td>第{{ idx + 1 }}张图片</td>
+        <td><input nz-input type="text" [(ngModel)]="data.bannerUrl" placeholder="请输入图片链接"></td>
+      </tr>
+    </tbody>
+  </nz-table>
+  <div style="text-align: center; padding-top: 40px; clear: both;">
+    <button nz-button nzType="primary" style="width: 160px;" (click)="save()">保存</button>
+  </div>
 </div>
+

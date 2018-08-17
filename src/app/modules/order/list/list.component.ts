@@ -99,7 +99,7 @@ export class ListComponent implements OnInit {
   enterModal() {
     if (this.showModal == 1 && !this.modalForm.remark) {
       this.message.warning('请输入备注信息');
-    } else if (this.showModal == 2 && !this.modalForm.orderStatus) {
+    } else if (this.showModal == 2 && !(typeof this.modalForm.orderStatus === 'number')) {
       this.message.warning('请选择订单状态');
     } else if (this.showModal == 3 && !this.modalForm.logisticNum) {
       this.message.warning('请输入物流编号');
