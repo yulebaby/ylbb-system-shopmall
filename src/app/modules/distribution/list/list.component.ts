@@ -1,3 +1,4 @@
+import { environment } from './../../../../environments/environment';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpService } from 'src/app/ng-relax/services/http.service';
 import { QueryNode } from 'src/app/ng-relax/components/query/query.component';
@@ -8,6 +9,8 @@ import { QueryNode } from 'src/app/ng-relax/components/query/query.component';
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit {
+
+    domain = environment.domain;
 
     queryNode: QueryNode[] = [
     {
