@@ -5,25 +5,38 @@
     选择
     <a href="javascript: void(0)">{{ checkedItems.length }}条</a> 相关记录
     <a href="javascript:;" style="margin-right: 8px;" (click)="operation()">售后处理</a>
-    <a href="javascript:;" style="margin-right: 8px;">导出订单信息</a>
+    <a target="_blank" [href]="domain + '/order/exportOrderMessage?itemIds=' + checkedItems.join(',')" download="售后订单.xls">导出订单信息</a>
   </ea-tip>
 
   <ea-table #EaTable [thead]="tableNode" [checked]="true" [EaTableTbodyTr]="EaTableTbodyTr" [allowSpace]="false" [(checkedItems)]="checkedItems"
-    url="/order/orderList">
+    url="/order/listOrderSaleAfterProcess">
     <ng-template let-data #EaTableTbodyTr>
-      <td>{{ data.orderCreateTime }}</td>
+      <td>{{ data.createTime | date: 'yyyy-MM-dd hh:mm:ss' }}</td>
       <td>{{ data.packageOrderNum }}</td>
-      <td>{{ data.orderStatus }}</td>
-      <td>{{ data.xxxxxxx }}</td>
       <td>{{ data.productNum }}</td>
       <td>{{ data.productName }}</td>
       <td>{{ data.productCount }}</td>
-      <td>{{ data.price }}</td>
-      <td>{{ data.freight }}</td>
-      <td>{{ data.totalPrice }}</td>
+      <td>{{ data.price | currency: '￥' }}</td>
+      <td>{{ data.freight | currency: '￥' }}</td>
+      <td>{{ data.sumPrice | currency: '￥' }}</td>
       <td>{{ data.memberId }}</td>
-      <td>{{ data.recipientInfo }}</td>
-      <td>{{ data.storeName }}</td>
+      <td><span nz-popover [nzContent]="popover">{{ data.recipientName }}</span></td>
+      <td>{{ data.shopName }}</td>
+
+      <ng-template #popover>
+        <p>{{ '接收人姓名：' + data.recipientName }}</p>
+        <p>{{ '接收人手机号：' + data.phoneNum }}</p>
+        <p>{{ '地址：' +data.provinceName + data.cityName + data.communityName + data.addressDetail }}</p>
+      </ng-template>
     </ng-template>
   </ea-table>
 </div>
+
+
+<nz-modal [(nzVisible)]="showRemark" nzTitle="商品售后备注" (nzOnCancel)="showRemark = false" (nzOnOk)="enterRemark()">
+  <textarea nz-input  [nzAutosize]="{ minRows: 4, maxRows: 6 }" [(ngModel)]="remark" placeholder="请输入售后备注" style="margin-bottom: 16px;"></textarea>
+  <nz-select style="width: 100%;" [(ngModel)]="status" nzAllowClear nzPlaceHolder="请选择退换货">
+    <nz-option [nzValue]="10" nzLabel="退货"></nz-option>
+    <nz-option [nzValue]="8" nzLabel="换货"></nz-option>
+  </nz-select>
+</nz-modal>

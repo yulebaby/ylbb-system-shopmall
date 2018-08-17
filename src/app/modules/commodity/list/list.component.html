@@ -14,7 +14,7 @@
   </ea-tip>
 
   <ea-table #EaTable (dataChange)="ready($event)" [thead]="tableNode"  [EaTableTbodyTr]="EaTableTbodyTr" [allowSpace]="false"
-    [checked]="true" [(checkedItems)]="checkedItems" checkedKey="skuId"
+    [checked]="true" [(checkedItems)]="checkedItems" spanKey="hasChildren" checkedKey="skuId"
     url="/shop/listShopByCondition">
     <ng-template let-data #EaTableTbodyTr>
       <td [attr.rowspan]="data.hasChildren ? data.hasChildren : 1"  *ngIf="data.hasChildren">{{ data.sort }}</td>

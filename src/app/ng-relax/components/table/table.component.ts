@@ -11,6 +11,8 @@ export class TableComponent implements OnInit {
 
   @Input() thead        : any[] = [];
 
+  @Input() spanKey      : string;
+
   @Input() url          : string;
 
   @Input() paramsDefault: any = {};
