@@ -112,7 +112,10 @@ export class TablecComponent implements OnInit {
 
   /* --------------------- 点击全选 --------------------- */
   _checkAll(value: boolean): void {
-    this.dataSet.map( (res: any) => res.checked = value);
+    this.dataSet.map( (res: any) => {
+      if (res.hasChildren) { res.checked = value };
+      return res;
+    });
     this.isChecked();
   }
 

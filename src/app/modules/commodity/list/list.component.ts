@@ -131,7 +131,10 @@ export class ListComponent implements OnInit {
     for (let i = 0; i < l; i++) {
       data.splice(0, 1)
     }
-    arr.map(res => data.push(res));
+    arr.map(res => {
+      res.checked = this.checkedItems.indexOf(res.skuId) > -1;
+      data.push(res)
+    });
   } 
 
 }
