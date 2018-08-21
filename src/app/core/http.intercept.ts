@@ -1,6 +1,6 @@
 import { NzMessageService } from 'ng-zorro-antd';
 import { Injectable } from '@angular/core';
-import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse } from '@angular/common/http';
+import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
@@ -17,7 +17,8 @@ export class NoopInterceptor implements HttpInterceptor {
     /* ----------- 如不是完整URL路径则拼接开发环境配置的主域名 ----------- */
     if (req.url.substr(0, 4) !== 'http') {
       req = req.clone({
-        url: environment.domain + req.url
+        url: environment.domain + req.url,
+        setHeaders:{ token: window.localStorage.getItem('token') || '' }
       });
     }
     /**
@@ -45,9 +46,8 @@ export class NoopInterceptor implements HttpInterceptor {
       tap(event => {
         if (event instanceof HttpResponse) {
           if (event.status == 200 || event.status == 304) {
-            if (event.body && event.body.code == 3000) {
-              window.localStorage.removeItem('userInfo');
-              this.router.navigateByUrl('/login');
+            if (event.body && event.body.code == -1) {
+              window.location.href = 'http://ucenter.beibeiyue.com/#/home/login';
             }
           } else {
             this.message.error('网络错误，请刷新重试');

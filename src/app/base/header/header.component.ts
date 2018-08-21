@@ -47,8 +47,8 @@ export class HeaderComponent implements OnInit {
   }
 
   signOut(): void {
-    window.localStorage.removeItem('userInfo');
-    this.router.navigateByUrl('/login');
+    window.localStorage.removeItem('token');
+    window.location.href = 'http://ucenter.beibeiyue.com/#/home/login';
   }
 
 }

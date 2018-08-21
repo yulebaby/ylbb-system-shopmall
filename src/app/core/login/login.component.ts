@@ -1,7 +1,7 @@
 import { AppState } from '../reducers/reducers-config';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 declare const CryptoJS;
@@ -16,7 +16,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private http       : HttpClient,
     private router     : Router,
-    private store      : Store<AppState>
+    private store      : Store<AppState>,
+    private route      : ActivatedRoute
   ) {
   }
 
@@ -26,9 +27,15 @@ export class LoginComponent implements OnInit {
         name: '管理员',
         id: 1,
         roleAllowPath: '**'
-      }})
-    setTimeout(() => {
-      this.router.navigateByUrl('/home');
-    });
+      }
+    })
+    this.route.queryParamMap.subscribe((res: any) => {
+      if (res.params.token) {
+        window.localStorage.setItem('token', res.params.token);
+        setTimeout(() => {
+          this.router.navigateByUrl('/home');
+        });
+      }
+    })
   }
 }
