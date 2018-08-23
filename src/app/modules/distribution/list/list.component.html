@@ -10,7 +10,7 @@
     url="/extract/extractList">
     <ng-template let-data #EaTableTbodyTr>
       <td>{{ data.subcode }}</td>
-      <td>{{ data.orderCreateTime | date:'yyyy-MM-dd hh:mm:ss' }}</td>
+      <td>{{ data.orderCreateTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>
       <td>{{ data.productName }}</td>
       <td>{{ data.productCount }}</td>
       <td>{{ data.price | currency: '￥' }}</td>

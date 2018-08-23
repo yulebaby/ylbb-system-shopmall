@@ -13,7 +13,7 @@
   <ea-table #EaTable [thead]="tableNode" [checked]="true" [EaTableTbodyTr]="EaTableTbodyTr" [allowSpace]="false" [(checkedItems)]="checkedItems"
     url="/order/orderList">
     <ng-template let-data #EaTableTbodyTr>
-      <td>{{ data.orderCreateTime | date: 'yyyy-MM-dd hh:mm:ss' }}</td>
+      <td>{{ data.orderCreateTime | date: 'yyyy-MM-dd HH:mm:ss' }}</td>
       <td>{{ data.packageOrderNum }}</td>
       <td>
       {{ 
