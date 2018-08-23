@@ -9,6 +9,8 @@
     <a href="javascript:;" style="margin-right: 8px;" (click)="operation('recommentStatus', 0)">取消推荐</a>
     <a href="javascript:;" style="margin-right: 8px;" (click)="operation('productStatus', 1)">上架</a>
     <a href="javascript:;" style="margin-right: 8px;" (click)="operation('productStatus', 0)">下架</a>
+    <a href="javascript:;" style="margin-right: 8px;" (click)="operation('preferentialStatus', 1)">参加特惠</a>
+    <a href="javascript:;" style="margin-right: 8px;" (click)="operation('preferentialStatus', 0)">取消特惠</a>
     <a href="javascript:;" style="margin-right: 8px;" (click)="operation(true)">排序</a>
     <a href="javascript:;" style="margin-right: 8px;" (click)="operation();">编辑该商品</a>
   </ea-tip>
@@ -23,6 +25,7 @@
       <td [attr.rowspan]="data.hasChildren ? data.hasChildren : 1"  *ngIf="data.hasChildren">{{ data.brandName }}</td>
       <td [attr.rowspan]="data.hasChildren ? data.hasChildren : 1"  *ngIf="data.hasChildren">{{ data.recommentStatus == 1 ? '推荐' : '不推荐' }}</td>
       <td [attr.rowspan]="data.hasChildren ? data.hasChildren : 1"  *ngIf="data.hasChildren">{{ data.productStatus == 1 ? '上架' : '下架' }}</td>
+      <td [attr.rowspan]="data.hasChildren ? data.hasChildren : 1"  *ngIf="data.hasChildren">{{ data.preferentialStatus == 1 ? '特惠中' : '未参加特惠' }}</td>
       <td>{{ data.propertiesName }}</td>
       <td>{{ data.price | currency: '￥' }}</td>
       <td>{{ data.activityPrice | currency: '￥' }}</td>
