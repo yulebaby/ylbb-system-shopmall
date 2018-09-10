@@ -15,7 +15,7 @@ export function userInfoReducer (state: UserInfoState, action: Action) {
   }
 }
 export interface UserInfoState {
-  name    : string;
+  name?   : string;
   email?  : string;
   id      : number;
   roles   : any[];
