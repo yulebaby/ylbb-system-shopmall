@@ -1,0 +1,64 @@
+<div class="container">
+  <ea-query [node]="queryNode" (onSubmit)="EaTable.request($event)" [EaQueryBtns]="EaQueryBtns">
+    <ng-template #EaQueryBtns>
+      <button nz-button nzType="primary" [style.margin-left]="'8px'" (click)="add()">新增推荐商品</button>
+    </ng-template>
+  </ea-query>
+
+  <ea-tablec #EaTable [thead]="tableNode"  [EaTableTbodyTr]="EaTableTbodyTr" [allowSpace]="false"
+    url="/extract/showIsRecommentProductList">
+    <ng-template let-data #EaTableTbodyTr>
+      <td>{{ data.productName }}</td>
+      <td>{{ data.isRecomment == 1 ? '推荐' : '未推荐' }}</td>
+      <td>{{ data.originalPrice | currency: '￥' }}</td>
+      <td>{{ data.activityPrice | currency: '￥' }}</td>
+      <td>
+        <a (click)="update(data)">编辑</a>
+        <nz-divider nzType="vertical"></nz-divider>
+        <a *ngIf="data.isRecomment == 0" (click)="recommend(data.id, 1)">上推荐</a>
+        <a *ngIf="data.isRecomment == 1" (click)="recommend(data.id, 0)">下推荐</a>
+      </td>
+    </ng-template>
+  </ea-tablec>
+</div>
+
+
+<nz-modal [(nzVisible)]="showModal" nzTitle="商品信息" [nzOkLoading]="saveLoading" (nzOnCancel)="showModal = false" (nzOnOk)="save()">
+  <form nz-form [formGroup]="formGroup">
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6" nzFor="productName" nzRequired>商品名称</nz-form-label>
+      <nz-form-control [nzSpan]="14">
+        <input nz-input formControlName="productName" id="productName" placeholder="请输入商品名称">
+        <nz-form-explain *ngIf="formGroup.get('productName').dirty && formGroup.get('productName').errors">请输入商品名称!</nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6" nzFor="originalPrice" nzRequired>原价(划线)</nz-form-label>
+      <nz-form-control [nzSpan]="14">
+        <input nz-input formControlName="originalPrice" id="originalPrice" placeholder="请输入商品原价">
+        <nz-form-explain *ngIf="formGroup.get('originalPrice').dirty && formGroup.get('originalPrice').errors">请输入商品原价!</nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6" nzFor="activityPrice" nzRequired>活动价</nz-form-label>
+      <nz-form-control [nzSpan]="14">
+        <input nz-input formControlName="activityPrice" id="activityPrice" placeholder="请输入商品活动价">
+        <nz-form-explain *ngIf="formGroup.get('activityPrice').dirty && formGroup.get('activityPrice').errors">请输入商品活动价!</nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6" nzFor="productImg" nzRequired>封面图url</nz-form-label>
+      <nz-form-control [nzSpan]="14">
+        <input nz-input formControlName="productImg" id="productImg" placeholder="请输入商品封面图url">
+        <nz-form-explain *ngIf="formGroup.get('productImg').dirty && formGroup.get('productImg').errors">请输入商品封面图url!</nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6" nzFor="url" nzRequired>跳转链接</nz-form-label>
+      <nz-form-control [nzSpan]="14">
+        <input nz-input formControlName="url" id="url" placeholder="请输入跳转到有赞的链接">
+        <nz-form-explain *ngIf="formGroup.get('url').dirty && formGroup.get('url').errors">请输入跳转到有赞的链接!</nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-modal>

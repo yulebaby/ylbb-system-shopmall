@@ -49,7 +49,12 @@ const routes: Routes = [
         path: 'broadcast',
         data: { title: '轮播管理' },
         loadChildren: 'src/app/modules/broadcast/broadcast.module#BroadcastModule'
-      }
+      },
+      {
+        path: 'recommend',
+        data: { title: '推荐管理' },
+        loadChildren: 'src/app/modules/recommend/recommend.module#RecommendModule'
+      },
     ]
   },
   {

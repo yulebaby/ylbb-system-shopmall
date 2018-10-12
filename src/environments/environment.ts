@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   version: '0.0.0',
   // domain: 'http://appadmin.beibeiyue.com'
-  domain: 'http://192.168.1.33:8081'
+  domain: 'http://192.168.1.124:8081'
 };
 
 /*

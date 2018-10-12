@@ -50,5 +50,12 @@ export const MenuConfig = [
     icon  : 'anticon-desktop',
     disabled: true,
     isLeaf: true
-  }
+  },
+  {
+    title : '推荐管理',
+    key   : '/home/recommend',
+    icon  : 'anticon-link',
+    disabled: true,
+    isLeaf: true
+  },
 ];
